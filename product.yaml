@@ -4,7 +4,7 @@ info:
   name: echo-api-product
 apis:
   echo:
-    name: echo:1.1.0
+    $ref: echo-api.yaml
 gateways:
   - datapower-api-gateway
 plans:
