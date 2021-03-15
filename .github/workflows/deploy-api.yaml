@@ -30,3 +30,9 @@ jobs:
         echo "${API_HOST}/api: |
                 refresh_token: \"\"
                 access_token: ${ACCESS_TOKEN}" > ~/.apiconnect/token 
+
+    - name: List orgs with apic CLI
+      env:
+        API_HOST: api.${{ secrets.host_suffix}}
+      run: |
+        ./apic-slim orgs --my --server ${API_HOST}
