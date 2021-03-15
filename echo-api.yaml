@@ -1,0 +1,76 @@
+swagger: '2.0'
+info:
+  title: Echo API
+  x-ibm-name: echo-api
+  version: 1.1.0
+  contact:
+    name: Ricky Moorhouse
+    email: moorh@uk.ibm.com
+host: $(catalog.host)
+schemes: []
+basePath: /public
+produces:
+  - application/json
+security: []
+securityDefinitions:
+  basicAuth:
+    type: basic
+    description: Basic auth against ops.apim.ibmcloud.com
+    x-ibm-authentication-url:
+      url: 'https://ops.apim.ibmcloud.com/'
+x-ibm-configuration:
+  assembly:
+    execute:
+      - map:
+          version: 2.0.0
+          title: map
+          inputs:
+            text:
+              schema:
+                type: string
+              variable: request.parameters.text
+          outputs:
+            response:
+              schema:
+                $ref: '#/definitions/responseObject'
+              variable: message.body
+          actions:
+            - set: response.text
+              from: text
+  gateway: datapower-api-gateway
+  enforced: true
+  testable: true
+  phase: realized
+  cors:
+    enabled: true
+  type: rest
+  activity-log:
+    enabled: true
+    error-content: header
+    success-content: activity
+  application-authentication:
+    certificate: false
+parameters:
+  text:
+    name: text
+    type: string
+    required: false
+    in: query
+    description: Text passed in
+definitions:
+  responseObject:
+    properties:
+      text:
+        type: string
+paths:
+  /echo:
+    get:
+      responses:
+        '200':
+          description: 200 OK
+          schema:
+            $ref: '#/definitions/responseObject'
+      parameters:
+        - $ref: '#/parameters/text'
+
+

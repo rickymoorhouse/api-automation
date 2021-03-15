@@ -1,0 +1,29 @@
+info:
+  version: 2.0.0
+  title: 'Echo API Product'
+  name: echo-api-product
+apis:
+  echo:
+    name: echo:1.1.0
+gateways:
+  - datapower-api-gateway
+plans:
+  default-plan:
+    title: Default Plan
+    description: Default Plan
+    approval: false
+    rate-limits:
+      default:
+        value: 100/1hour
+product: 1.0.0
+visibility:
+  view:
+    enabled: true
+    type: public
+    tags: []
+    orgs: []
+  subscribe:
+    enabled: true
+    type: authenticated
+    tags: []
+    orgs: []
