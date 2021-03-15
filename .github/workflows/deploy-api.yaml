@@ -35,7 +35,7 @@ jobs:
       env:
         API_HOST: api.${{ secrets.host_suffix}}
       run: |
-        ./apic-slim orgs --accept-license --live-help false --my --server ${API_HOST}
+        ./apic-slim orgs --accept-license --live-help --my --server ${API_HOST}
 
     - name: Publlish product with apic CLI
       env:
