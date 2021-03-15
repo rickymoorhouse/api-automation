@@ -31,12 +31,8 @@ jobs:
                 refresh_token: \"\"
                 access_token: ${ACCESS_TOKEN}" > ~/.apiconnect/token 
 
-    - name: Accept license for apic CLI
-      run: | 
-        echo 'accept_license: "true"\nlive_help: "false"' > ~/.apiconnect/config
-
     - name: List orgs with apic CLI
       env:
         API_HOST: api.${{ secrets.host_suffix}}
       run: |
-        ./apic-slim orgs --my --server ${API_HOST}
+        ./apic-slim orgs --accept-license --my --server ${API_HOST}
