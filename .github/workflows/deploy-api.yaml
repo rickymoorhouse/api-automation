@@ -11,8 +11,10 @@ jobs:
       uses: actions/checkout@v1
 
     - name: Get APIC Toolkit
+      env:
+        MANAGER_HOST: manager.${{ secrets.host_suffix}}
       run: |
-        curl -LO https://manager.6ebe-65eb6541.eu-gb.apiconnect.test.cloud.ibm.com/client-downloads/toolkit-linux.tgz
+        curl -LO https://${MANAGER_HOST}/client-downloads/toolkit-linux.tgz
         tar -vzxf toolkit-linux.tgz
         ls -l
         chmod a+x apic-slim
@@ -20,5 +22,11 @@ jobs:
     - name: Get IAM token
       env:
         API_KEY: ${{ secrets.api_key }}
+        API_HOST: api.${{ secrets.host_suffix}}
       run: |
+        mkdir ~/.apiconnect/
         touch ~/.apiconnect/token
+        ACCESS_TOKEN=$(curl -s "https://iam.cloud.ibm.com/identity/token" -H 'Content-Type: application/x-www-form-urlencoded' -H 'Accept: application/json' --data "grant_type=urn:ibm:params:oauth:grant-type:apikey&apikey=$API_KEY" | jq .access_token -r)
+        echo "${API_HOST}/api: |
+                refresh_token: \"\"
+                access_token: ${ACCESS_TOKEN}" > ~/.apiconnect/token 
