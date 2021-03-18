@@ -37,6 +37,12 @@ jobs:
       run: |
         ./apic-slim orgs --accept-license --live-help --my --server ${API_HOST}
 
+    - name: Validate product
+      env:
+        API_HOST: api.${{ secrets.host_suffix}}
+      run: |
+        ./apic-slim validate product.yaml
+
     - name: Publlish product with apic CLI
       env:
         API_HOST: api.${{ secrets.host_suffix}}
