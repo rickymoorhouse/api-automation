@@ -12,12 +12,6 @@ basePath: /public
 produces:
   - application/json
 security: []
-securityDefinitions:
-  basicAuth:
-    type: basic
-    description: Basic auth against ops.apim.ibmcloud.com
-    x-ibm-authentication-url:
-      url: 'https://ops.apim.ibmcloud.com/'
 x-ibm-configuration:
   assembly:
     execute:
